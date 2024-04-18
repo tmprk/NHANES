@@ -1,18 +1,58 @@
-<html>
-  <body>
-    <script>
-      (async () => {
-        const response = await fetch('https://api.github.com/repos/tmprk/NHANES/contents/');
-        const data = await response.json();
-        let htmlString = '<ul>';
-        
-        for (let file of data) {
-          htmlString += `<li><a href="${file.path}">${file.name}</a></li>`;
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NHANES</title>
+<style>
+  body {
+    font-family: "Helvetica Neue", sans-serif;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+    text-align: left;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 5px;
+  }
+  a {
+    text-decoration: none;
+    background-color:rgb(242, 242, 242);
+    color: #333;
+    padding: 6px 8px;
+    border-radius: 4px;
+    transition: background-color 200ms linear;
+  }
+  a:hover {
+    background-color: rgb(184, 211, 255);
+  }
+</style>
+</head>
+<body>
+  <h1>NHANES</h1>
+  <ul>
+  </ul>
+  <script>
+    (async () => {
+      const response = await fetch('https://api.github.com/repos/tmprk/NHANES/contents/');
+      const data = await response.json();
+      let htmlString = '';
 
-        htmlString += '</ul>';
-        document.getElementsByTagName('body')[0].innerHTML = htmlString;
-      })()
-    </script>
-  <body>
+      for (let file of data) {
+        if (file.name !== 'index.html') {
+          let fileName = file.name.replace(/\.html$/, ''); // Remove .html extension
+          fileName = fileName.replace(/_/g, ' '); // Replace underscores with spaces
+          htmlString += `<li><a href="${file.path}">${fileName}</a></li>`;
+        }
+      }
+
+      document.querySelector('ul').innerHTML = htmlString;
+    })();
+  </script>
+</body>
 </html>
