@@ -35,7 +35,7 @@
   }
 
   #fileList li {
-    padding: 14px;
+    padding: 14px 30px;
     border-bottom: 1px solid #ddd;
   }
 
@@ -54,6 +54,10 @@
   #fileList li a {
     text-decoration: none;
     color: #333;
+  }
+
+  #fileList li a .date {
+    color: #007aff;
   }
   
   #fileList li a:hover {
@@ -84,11 +88,12 @@
 
       for (let file of data) {
         if (file.name !== 'index.html') {
-          let fileNameParts = file.name.split('_');
-          let fileName = fileNameParts.pop();
-          let fileDate = fileNameParts.join('_');
-          fileName = fileName.replace(/\.html$/, '');
-          htmlString += `<li onclick="openFile(this, '${file.path}')"><a href="#">${fileDate} - ${fileName}</a></li>`;
+          let fileNameParts = file.name.split('_'); // Split the file name by underscore
+          let fileName = fileNameParts.pop(); // Get the file name (last part after underscore)
+          let fileDate = fileNameParts.join('_'); // Get the date (parts before the file name joined with underscore)
+          let [month, day, year] = fileDate.split('-'); // Split the date parts
+          fileName = fileName.replace(/\.html$/, ''); // Remove .html extension
+          htmlString += `<li onclick="openFile(this, '${file.path}')"><a href="#"><span style="color: blue;">${month}/${day}/${year}</span> - ${fileName}</a></li>`;
         }
       }
 
