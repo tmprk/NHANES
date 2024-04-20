@@ -52,15 +52,18 @@
   } */
 
   #fileList li a {
-    text-decoration: none;
     color: #333;
+    text-decoration: none;
+    pointer-events: none;
+    cursor: default;
   }
 
   /* #fileList li a .date {
     color: #007aff;
   } */
   
-  #fileList li a:hover {
+  #fileList li:hover {
+    cursor: pointer;
     text-decoration: underline;
   }
 </style>
